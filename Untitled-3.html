@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blood Bank Management</title>
+</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            color: #8B0000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #8B0000;
+            color: white;
+        }
+
+        form {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        label, input, select, button {
+            margin-bottom: 10px;
+            display: block;
+        }
+        button {
+            padding: 10px;
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5e0808;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Blood Bank Management System</h2>
+
+    <form id="donorForm">
+        <h3>Add Donor</h3>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="bloodType">Blood Type:</label>
+        <select id="bloodType" name="bloodType">
+            <option value="A+">A+</option>
+            <option value="B+">B+</option>
+            <option value="AB+">AB+</option>
+            <option value="O">O</option>
+            <option value="A-">A-</option>
+            <option value="B-">B-</option>
+            <option value="AB-">AB-</option>
+            <!-- Add more blood types as needed -->
+        </select>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="18" required>
+
+        <button type="button" onclick="addDonor()">Add Donor</button>
+    </form>
+
+    <!-- Table to Display Donors -->
+    <table id="donorsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Blood Type</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody id="donorsBody">
+            <!-- Donors data will be dynamically loaded here -->
+        </tbody>
+    </table>
+
+    <script>
+        var donors = []; // Array to hold donor data
+
+        function addDonor() {
+            var name = document.getElementById("name").value;
+            var bloodType = document.getElementById("bloodType").value;
+            var age = document.getElementById("age").value;
+
+            var donor = {
+                name: name,
+                bloodType: bloodType,
+                age: age
+            };
+
+            donors.push(donor); // Add donor to the list
+
+            displayDonors(); // Update the displayed donor list
+            document.getElementById("donorForm").reset(); // Reset the form
+        }
+
+        function displayDonors() {
+            var tableBody = document.getElementById("donorsBody");
+            tableBody.innerHTML = "";
+
+            for (var i = 0; i < donors.length; i++) {
+                var row = tableBody.insertRow(i);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = donors[i].name;
+                cell2.innerHTML = donors[i].bloodType;
+                cell3.innerHTML = donors[i].age;
+            }
+        }
+    </script>
+</body>
+</html>
